@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Jobs\LoadShoeDataFromStepnApiJob;
 use App\Stepn\ApiClient;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -36,7 +37,7 @@ class Stepn extends Command
     {
         $api = new ApiClient();
 
-        collect($api->getOrderList()->get('data'))->each(function ($order) {
+        collect($api->getOrderList()->get('data'))->each(function ($order) use ($api) {
             $this->info(sprintf('Creating data for order %s', $order['propID']));
             DB::table('shoes')->upsert(
                 [[
@@ -54,6 +55,8 @@ class Stepn extends Command
                     'price'
                 ]
             );
+
+            (new LoadShoeDataFromStepnApiJob($order['id']))->handle($api);
         });
     }
 }

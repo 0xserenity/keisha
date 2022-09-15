@@ -12,7 +12,7 @@ class ApiClient
 
     protected string $baseUrl = 'https://api.stepn.com/';
 
-    protected string $sessionID = 'fRAUqE66j0WKI5vh:1663071309553:10770187';
+    protected string $sessionID = 'yvjkMhDF3Rfa6Nr9%3A1663242864655%3A90410';
 
     public function getBaseUrl(): string
     {
@@ -69,6 +69,13 @@ class ApiClient
     public function getOrderList(): Collection
     {
         $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=&gType=&quality=&level=0&bread=0');
+
+        return collect(json_decode((string)$response->getBody(), true));
+    }
+
+    public function getOrderData(int $stepnOrderID): Collection
+    {
+        $response = $this->sendRequest('GET', sprintf('/run/orderdata?orderId=%s', $stepnOrderID));
 
         return collect(json_decode((string)$response->getBody(), true));
     }
