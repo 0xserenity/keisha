@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Support\Facades\DB;
 
-class LoadShoeDataFromStepnApiJob implements ShouldQueue
+class LoadShoeDataFromStepnApi implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -32,7 +32,10 @@ class LoadShoeDataFromStepnApiJob implements ShouldQueue
                 'efficiency' => $order['attrs'][0],
                 'luck' => $order['attrs'][1],
                 'comfort' => $order['attrs'][2],
-                'resilience' => $order['attrs'][3]
+                'resilience' => $order['attrs'][3],
+                'breed' => $order['breed'],
+                'type' => $order['type'],
+                'order_id' => $this->stepnOrderID
             ]],
             ['stepn_id'],
             [
@@ -41,7 +44,10 @@ class LoadShoeDataFromStepnApiJob implements ShouldQueue
                 'efficiency',
                 'luck',
                 'comfort',
-                'resilience'
+                'resilience',
+                'breed',
+                'type',
+                'order_id'
             ]
         );
     }

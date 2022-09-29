@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+return new class extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('shoes', function (Blueprint $table) {
+            $table->unsignedTinyInteger('breed')->default(0);
+            $table->unsignedTinyInteger('type')->default(0);
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('shoes', function (Blueprint $table) {
+            $table->dropColumn('breed');
+            $table->dropColumn('type');
+        });
+    }
+};

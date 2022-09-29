@@ -2,7 +2,7 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\LoadShoeDataFromStepnApiJob;
+use App\Jobs\LoadShoeDataFromStepnApi;
 use App\Stepn\ApiClient;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
@@ -56,7 +56,7 @@ class Stepn extends Command
                 ]
             );
 
-            (new LoadShoeDataFromStepnApiJob($order['id']))->handle($api);
+            (new LoadShoeDataFromStepnApi($order['id']))->handle($api);
         });
     }
 }
