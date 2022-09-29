@@ -12,7 +12,7 @@ class ApiClient
 
     protected string $baseUrl = 'https://api.stepn.com/';
 
-    protected string $sessionID = 'LfcOCv3L3jfibSEO%3A1664448607293%3A254168';
+    protected string $sessionID = 'kEQ7sGQxay2AWVnG%3A1664469641966%3A556098';
 
     public function getBaseUrl(): string
     {
@@ -69,16 +69,20 @@ class ApiClient
     public function getOrderList($filter = null): Collection
     {
         switch ($filter) {
-            case '29ugl':
+            case 1:
+            case '29ugl': // 29 Uncommon Good Liquidity
                 $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=2&level=30030&bread=1008');
                 return collect(json_decode((string)$response->getBody(), true));
-            case '30cgl':
+            case 2:
+            case '30cgl': // 30 Common Good Liquidity
                 $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=1&level=31031&bread=1008');
                 return collect(json_decode((string)$response->getBody(), true));
-            case '30ugl':
+            case 3:
+            case '30ugl': // 30 Uncommon Good Liquidity
                 $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=2&level=31031&bread=1008');
                 return collect(json_decode((string)$response->getBody(), true));
-            case '30um1':
+            case 4:
+            case '30um1': // 30 Uncommon Mint 1
                 $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=2&level=31031&bread=2002');
                 return collect(json_decode((string)$response->getBody(), true));
             default:

@@ -37,7 +37,7 @@ class Stepn extends Command
     {
         $api = new ApiClient();
 
-        collect($api->getOrderList('30cgl')->get('data'))->each(function ($order) use ($api) {
+        collect($api->getOrderList('30um1')->get('data'))->each(function ($order) use ($api) {
             $this->info(sprintf('Creating data for order %s', $order['propID']));
             DB::table('sneakers')->upsert(
                 [[
