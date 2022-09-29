@@ -37,21 +37,15 @@ class Stepn extends Command
     {
         $api = new ApiClient();
 
-        collect($api->getOrderList()->get('data'))->each(function ($order) use ($api) {
+        collect($api->getOrderList('30cgl')->get('data'))->each(function ($order) use ($api) {
             $this->info(sprintf('Creating data for order %s', $order['propID']));
-            DB::table('shoes')->upsert(
+            DB::table('sneakers')->upsert(
                 [[
                     'stepn_id' => $order['propID'],
                     'price' => $order['sellPrice']
                 ]],
                 ['stepn_id'],
                 [
-                    'level',
-                    'quality',
-                    'efficiency',
-                    'luck',
-                    'comfort',
-                    'resilience',
                     'price'
                 ]
             );

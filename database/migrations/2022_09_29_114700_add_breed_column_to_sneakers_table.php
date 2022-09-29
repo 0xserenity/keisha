@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('shoes', function (Blueprint $table) {
+        Schema::table('sneakers', function (Blueprint $table) {
             $table->unsignedTinyInteger('breed')->default(0);
             $table->unsignedTinyInteger('type')->default(0);
         });
@@ -26,7 +26,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('shoes', function (Blueprint $table) {
+        Schema::table('sneakers', function (Blueprint $table) {
             $table->dropColumn('breed');
             $table->dropColumn('type');
         });

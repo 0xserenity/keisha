@@ -13,15 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('shoes', function (Blueprint $table) {
+        Schema::create('sneakers', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('stepn_id')->unique();
             $table->unsignedTinyInteger('level')->default(0);
-            $table->unsignedTinyInteger('quality')->default(0);
-            $table->unsignedTinyInteger('efficiency')->default(0);
-            $table->unsignedTinyInteger('luck')->default(0);
-            $table->unsignedTinyInteger('comfort')->default(0);
-            $table->unsignedTinyInteger('resilience')->default(0);
+            $table->unsignedBigInteger('quality')->default(0);
+            $table->unsignedBigInteger('efficiency')->default(0);
+            $table->unsignedBigInteger('luck')->default(0);
+            $table->unsignedBigInteger('comfort')->default(0);
+            $table->unsignedBigInteger('resilience')->default(0);
             $table->unsignedBigInteger('price')->default(0);
             $table->timestamps();
             $table->softDeletes();
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shoes');
+        Schema::dropIfExists('sneakers');
     }
 };

@@ -12,7 +12,7 @@ class ApiClient
 
     protected string $baseUrl = 'https://api.stepn.com/';
 
-    protected string $sessionID = 'WMMeKAph16yX7BzR%3A1664427127102%3A1018695';
+    protected string $sessionID = 'LfcOCv3L3jfibSEO%3A1664448607293%3A254168';
 
     public function getBaseUrl(): string
     {
@@ -43,7 +43,7 @@ class ApiClient
     {
         return [
             'headers' => [
-                'Accept'        => 'application/json',
+                'Accept' => 'application/json',
                 'Accept-Encoding' => 'gzip, deflate, br'
             ],
             'decode_content' => false
@@ -66,10 +66,26 @@ class ApiClient
         );
     }
 
-    public function getOrderList(): Collection
+    public function getOrderList($filter = null): Collection
     {
-        $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=2&level=31031&bread=1001');
+        switch ($filter) {
+            case '29ugl':
+                $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=2&level=30030&bread=1008');
+                return collect(json_decode((string)$response->getBody(), true));
+            case '30cgl':
+                $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=1&level=31031&bread=1008');
+                return collect(json_decode((string)$response->getBody(), true));
+            case '30ugl':
+                $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=2&level=31031&bread=1008');
+                return collect(json_decode((string)$response->getBody(), true));
+            case '30um1':
+                $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=2&level=31031&bread=2002');
+                return collect(json_decode((string)$response->getBody(), true));
+            default:
+        }
 
+        // Default is lvl 30, mint 0, uncommon
+        $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=2&level=31031&bread=1001');
         return collect(json_decode((string)$response->getBody(), true));
     }
 
