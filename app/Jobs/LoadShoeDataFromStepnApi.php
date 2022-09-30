@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Stepn\ApiClient;
+use Carbon\Carbon;
 use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Bus\Queueable;
@@ -46,6 +47,7 @@ class LoadShoeDataFromStepnApi implements ShouldQueue
                 'luck_socket' => $holes->where('type', '=', 2)->count(),
                 'comfort_socket' => $holes->where('type', '=', 3)->count(),
                 'resilience_socket' => $holes->where('type', '=', 4)->count(),
+                'updated_at' => Carbon::now(),
             ]],
             ['stepn_id'],
             [
@@ -65,7 +67,8 @@ class LoadShoeDataFromStepnApi implements ShouldQueue
                 'efficiency_socket',
                 'luck_socket',
                 'comfort_socket',
-                'resilience_socket'
+                'resilience_socket',
+                'updated_at'
             ]
         );
     }

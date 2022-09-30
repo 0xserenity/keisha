@@ -23,6 +23,8 @@ class Stepn extends Command
      */
     protected $description = 'The very first command to get data from STEPN API';
 
+    protected $api;
+
     /**
      * Create a new command instance.
      *
@@ -31,26 +33,30 @@ class Stepn extends Command
     public function __construct()
     {
         parent::__construct();
+        $this->api = new ApiClient();
     }
 
     public function handle()
     {
-        $api = new ApiClient();
-
-        collect($api->getOrderList('30um1')->get('data'))->each(function ($order) use ($api) {
+        collect($this->api->getOrderList(3)->get('data'))->each(function ($order) {
             $this->info(sprintf('Creating data for order %s', $order['propID']));
-            DB::table('sneakers')->upsert(
-                [[
-                    'stepn_id' => $order['propID'],
-                    'price' => $order['sellPrice']
-                ]],
-                ['stepn_id'],
-                [
-                    'price'
-                ]
-            );
-
-            (new LoadShoeDataFromStepnApi($order['id']))->handle($api);
+            $this->createOrderData($order);
         });
+    }
+
+    public function createOrderData($order)
+    {
+        DB::table('sneakers')->upsert(
+            [[
+                'stepn_id' => $order['propID'],
+                'price' => $order['sellPrice']
+            ]],
+            ['stepn_id'],
+            [
+                'price'
+            ]
+        );
+
+        (new LoadShoeDataFromStepnApi($order['id']))->handle($this->api);
     }
 }
