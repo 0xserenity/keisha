@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\FindGoodDealsController;
+use App\Http\Controllers\GetNewDealsController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,3 +35,8 @@ Route::middleware([
         return Inertia::render('Dashboard');
     })->name('dashboard');
 });
+
+Route::get('/deals/find', FindGoodDealsController::class)
+    ->name('deals.find');
+Route::post('/deals/get', GetNewDealsController::class)
+    ->name('deals.get');

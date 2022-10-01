@@ -14,7 +14,7 @@ class Stepn extends Command
      *
      * @var string
      */
-    protected $signature = 'stepn';
+    protected $signature = 'stepn {sessionID} {filter?}';
 
     /**
      * The console command description.
@@ -23,7 +23,7 @@ class Stepn extends Command
      */
     protected $description = 'The very first command to get data from STEPN API';
 
-    protected $api;
+    protected ApiClient $api;
 
     /**
      * Create a new command instance.
@@ -38,7 +38,9 @@ class Stepn extends Command
 
     public function handle()
     {
-        collect($this->api->getOrderList(3)->get('data'))->each(function ($order) {
+        $this->api->setSessionID($this->argument('sessionID'));
+
+        collect($this->api->getOrderList($this->argument('filter'))->get('data'))->each(function ($order) {
             $this->info(sprintf('Creating data for order %s', $order['propID']));
             $this->createOrderData($order);
         });
@@ -49,11 +51,13 @@ class Stepn extends Command
         DB::table('sneakers')->upsert(
             [[
                 'stepn_id' => $order['propID'],
-                'price' => $order['sellPrice']
+                'price' => $order['sellPrice'],
+                'otd' => $order['otd']
             ]],
             ['stepn_id'],
             [
-                'price'
+                'price',
+                'otd'
             ]
         );
 

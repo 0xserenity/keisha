@@ -98,4 +98,9 @@ class ApiClient
 
         return collect(json_decode((string)$response->getBody(), true));
     }
+
+    public function setSessionID(string $sessionId): void
+    {
+        $this->sessionID = $sessionId;
+    }
 }

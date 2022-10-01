@@ -48,6 +48,7 @@ class LoadShoeDataFromStepnApi implements ShouldQueue
                 'comfort_socket' => $holes->where('type', '=', 3)->count(),
                 'resilience_socket' => $holes->where('type', '=', 4)->count(),
                 'updated_at' => Carbon::now(),
+                'otd' => $order['otd']
             ]],
             ['stepn_id'],
             [
@@ -68,7 +69,8 @@ class LoadShoeDataFromStepnApi implements ShouldQueue
                 'luck_socket',
                 'comfort_socket',
                 'resilience_socket',
-                'updated_at'
+                'updated_at',
+                'otd'
             ]
         );
     }
