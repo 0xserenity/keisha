@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\CoinMarketCap\ApiClient;
+use App\Stepn\StepnfpdotcomClient;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
@@ -22,9 +23,11 @@ class Pricing extends Command
      *
      * @var string
      */
-    protected $description = 'Update pricing from Coin Market Cap';
+    protected $description = 'Update pricing from Coin Market Cap & other sources';
 
-    protected ApiClient $api;
+    protected ApiClient $cmcClient;
+
+    protected StepnfpdotcomClient $sfpClient;
 
     /**
      * Create a new command instance.
@@ -34,12 +37,13 @@ class Pricing extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->api = new ApiClient();
+        $this->cmcClient = new ApiClient();
+        $this->sfpClient = new StepnfpdotcomClient();
     }
 
     public function handle()
     {
-        $prices = Arr::pluck($this->api->getQuotes()->get('data'), 'quote.USD.price');
+        $prices = Arr::pluck($this->cmcClient->getQuotes()->get('data'), 'quote.USD.price');
         DB::table('pricing')
             ->upsert(
                 [
@@ -56,6 +60,35 @@ class Pricing extends Command
                     [
                         'symbol' => 'GMT',
                         'price' => $prices[2],
+                        'updated_at' => Carbon::now()
+                    ]
+                ],
+                ['symbol'],
+                ['price', 'updated_at']
+            );
+
+        $gemPrices = $this->sfpClient->getGemPricing()->toArray();
+        DB::table('pricing')
+            ->upsert(
+                [
+                    [
+                        'symbol' => 'COMFORT1',
+                        'price' => $gemPrices['comfort1'],
+                        'updated_at' => Carbon::now()
+                    ],
+                    [
+                        'symbol' => 'COMFORT2',
+                        'price' => $gemPrices['comfort2'],
+                        'updated_at' => Carbon::now()
+                    ],
+                    [
+                        'symbol' => 'COMFORT3',
+                        'price' => $gemPrices['comfort3'],
+                        'updated_at' => Carbon::now()
+                    ],
+                    [
+                        'symbol' => 'COMFORT4',
+                        'price' => $gemPrices['comfort4'],
                         'updated_at' => Carbon::now()
                     ]
                 ],
