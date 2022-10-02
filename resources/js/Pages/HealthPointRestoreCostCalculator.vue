@@ -81,7 +81,7 @@ const calculate = () => {
             <template #description>
               <ul class="mt-3 space-y-1">
                 <li>Enter % HP that need to be restored</li>
-                <li>Select sneaker's quality</li>
+                <li>Select sneakers' quality</li>
                 <li>Select comfort gem level that you want to use</li>
                 <li>Hit the "Calculate" button to see the result</li>
               </ul>
@@ -100,7 +100,7 @@ const calculate = () => {
               </div>
 
               <div v-if="qualities.length > 0" class="col-span-6 lg:col-span-4">
-                <InputLabel for="quality" value="Sneaker's quality"/>
+                <InputLabel for="quality" value="Sneakers' quality"/>
                 <InputError :message="getHpRestoreCostForm.errors.quality" class="mt-2"/>
 
                 <div class="relative z-0 mt-1 border border-gray-200 rounded-lg cursor-pointer">
