@@ -1,12 +1,12 @@
 <?php
 
-namespace App\CoinMarketCap;
+namespace App\Pricing;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
 use Psr\Http\Message\ResponseInterface;
 
-class ApiClient
+class CoinMarketCapApiClient
 {
     protected ?Client $guzzleClient = null;
 

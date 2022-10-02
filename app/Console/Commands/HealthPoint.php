@@ -2,11 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\CoinMarketCap\ApiClient;
-use App\Stepn\StepnfpdotcomClient;
-use Carbon\Carbon;
+use App\Pricing\Price;
 use Illuminate\Console\Command;
-use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 
 class HealthPoint extends Command
@@ -43,17 +40,9 @@ class HealthPoint extends Command
             $this->argument('gem')
         );
 
-        $gemPrice = DB::table('pricing')
-            ->where('symbol', '=', sprintf('COMFORT%d', $this->argument('gem')))
-            ->value('price');
-
-        $solPrice = DB::table('pricing')
-            ->where('symbol', '=', 'SOL')
-            ->value('price');
-
-        $gstPrice = DB::table('pricing')
-            ->where('symbol', '=', 'GST')
-            ->value('price');
+        $gemPrice = Price::symbol(sprintf('COMFORT%d', $this->argument('gem')));
+        $solPrice = Price::symbol('SOL');
+        $gstPrice = Price::symbol('GST');
 
         $this->info(
             sprintf('To restore %d%% HP using comfort gem level %d, we need:||', $this->argument('hp'), $this->argument('gem'))

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Stepn;
+namespace App\Pricing;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;

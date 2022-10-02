@@ -163,7 +163,7 @@ const getNewDeals = () => {
                       ID
                     </div>
                     <div class="flex items-center">
-                      Quality
+                      Daily ROI
                     </div>
                     <div class="flex items-center">
                       Level
@@ -189,7 +189,7 @@ const getNewDeals = () => {
                     </div>
 
                     <div class="flex items-end">
-                      {{ sneaker.quality }}
+                      {{ numberFormat(sneaker.daily_roi) }}
                     </div>
 
                     <div class="flex items-end">

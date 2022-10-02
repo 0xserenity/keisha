@@ -2,6 +2,7 @@
 
 namespace App\Stepn;
 
+use App\Pricing\Price;
 use Illuminate\Support\Collection;
 
 class Level
@@ -200,5 +201,13 @@ class Level
     public function getHours(): float|int
     {
         return $this->getMinutes() / 60;
+    }
+
+    public function getTotalSol(): float|int
+    {
+        $gmtInUsd = $this->getGmt() * Price::symbol('GMT');
+        $gstInUsd = $this->getGst() * Price::symbol('GST');
+
+        return ($gmtInUsd + $gstInUsd) / Price::symbol('SOL');
     }
 }

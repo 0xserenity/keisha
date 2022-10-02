@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\CoinMarketCap\ApiClient;
-use App\Stepn\StepnfpdotcomClient;
+use App\Pricing\CoinMarketCapApiClient;
+use App\Pricing\StepnfpdotcomClient;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Arr;
@@ -25,7 +25,7 @@ class Pricing extends Command
      */
     protected $description = 'Update pricing from Coin Market Cap & other sources';
 
-    protected ApiClient $cmcClient;
+    protected CoinMarketCapApiClient $cmcClient;
 
     protected StepnfpdotcomClient $sfpClient;
 
@@ -37,7 +37,7 @@ class Pricing extends Command
     public function __construct()
     {
         parent::__construct();
-        $this->cmcClient = new ApiClient();
+        $this->cmcClient = new CoinMarketCapApiClient();
         $this->sfpClient = new StepnfpdotcomClient();
     }
 
