@@ -56,11 +56,24 @@ class HealthPoint extends Command
             ->value('price');
 
         $this->info(
+            sprintf('To restore %d%% HP using comfort gem level %d, we need:||', $this->argument('hp'), $this->argument('gem'))
+        );
+
+        $this->info(
             sprintf(
-                'Quantity: %d, GST: %d, Price in USD: %01.2f',
+                '%d gems| %d GST for the fee| So it costs %01.2f USD in total|||',
                 $hp->getQuantity(),
-                $hp->getCost(),
+                $hp->getCost() * $hp->getQuantity(),
                 number_format($hp->getQuantity() * $gemPrice * $solPrice + $hp->getQuantity() * $hp->getCost() * $gstPrice, 2)
+            )
+        );
+
+        $this->info(
+            sprintf(
+                'Pricing:| 1 Gem = %01.3f SOL| 1 SOL = %01.2f USD| 1 GST =  %01.4f USD',
+                $gemPrice,
+                number_format($solPrice, 2),
+                number_format($gstPrice, 4)
             )
         );
     }
