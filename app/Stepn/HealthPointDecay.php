@@ -153,24 +153,156 @@ class HealthPointDecay
             [115, 9999],
             0.1
         ],
+        [
+            2,
+            8,
+            0.33
+        ],
+        [
+            2,
+            9,
+            0.32
+        ],
+        [
+            2,
+            10,
+            0.3
+        ],
+        [
+            2,
+            11,
+            0.29
+        ],
+        [
+            2,
+            12,
+            0.28
+        ],
+        [
+            2,
+            13,
+            0.27
+        ],
+        [
+            2,
+            14,
+            0.26
+        ],
+        [
+            2,
+            [15, 16],
+            0.25
+        ],
+        [
+            2,
+            17,
+            0.24
+        ],
+        [
+            2,
+            [18, 19],
+            0.23
+        ],
+        [
+            2,
+            [20, 21],
+            0.22
+        ],
+        [
+            2,
+            [22, 24],
+            0.21
+        ],
+        [
+            2,
+            [25, 27],
+            0.2
+        ],
+        [
+            2,
+            [28, 30],
+            0.19
+        ],
+        [
+            2,
+            [31, 35],
+            0.18
+        ],
+        [
+            2,
+            [36, 40],
+            0.17
+        ],
+        [
+            2,
+            [41, 46],
+            0.16
+        ],
+        [
+            2,
+            [47, 54],
+            0.15
+        ],
+        [
+            2,
+            [55, 64],
+            0.14
+        ],
+        [
+            2,
+            [65, 76],
+            0.13
+        ],
+        [
+            2,
+            [77, 92],
+            0.12
+        ],
+        [
+            2,
+            [93, 114],
+            0.11
+        ],
+        [
+            2,
+            [115, 144],
+            0.1
+        ],
+        [
+            2,
+            [145, 186],
+            0.09
+        ],
+        [
+            2,
+            [187, 9999],
+            0.08
+        ],
     ];
 
     protected float $comfort = 1;
 
-    public function __construct(float $comfort = 1)
+    protected int $quality = 1;
+
+    public function __construct(float $comfort = 1, int $quality = 1)
     {
         $this->comfort = $comfort;
+        $this->quality = $quality;
     }
 
     public function getDecaySpeed()
     {
         $found = collect($this->decay)
             ->filter(function ($item) {
-                if (is_numeric($item[1])) {
-                    return floor($item[1]) === floor($this->comfort);
+                if ($this->quality === $item[0]) {
+                    if (is_numeric($item[1])) {
+                        return floor($item[1]) === floor($this->comfort);
+                    }
+
+                    return $item[1][0] <= $this->comfort && $this->comfort <= $item[1][1];
                 }
 
-                return $item[1][0] <= $this->comfort && $this->comfort <= $item[1][1];
+                return false;
             })
             ->first();
 

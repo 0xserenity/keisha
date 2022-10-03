@@ -8,10 +8,10 @@ const props = defineProps({
 </script>
 
 <template>
-  <AppLayout title="STEPN Good Deals Finder">
+  <AppLayout title="Find Good STEPN Sneakers Deal On Market">
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        STEPN Good Deals Finder
+        Find Good STEPN Sneakers Deal On Market
       </h2>
     </template>
 
@@ -22,11 +22,21 @@ const props = defineProps({
           <div class="bg-indigo-100 rounded-lg">
             <div class="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
               <div class="flex flex-wrap items-center justify-between">
-                <div class="flex w-0 flex-1 items-center">
-
-                  <p class="ml-3 truncate font-medium text-indigo-600">
-                    <span>This page is in progress (WIP). Ping me on https://www.reddit.com/user/Adam_Kavanagh if you want to contribute something to the tool.</span>
-                  </p>
+                <div class="w-0 flex-1 items-center">
+                  <ul class="list-disc">
+                    <li class="ml-3 font-medium text-indigo-600">
+                      <span>This page is in progress (WIP)</span>
+                    </li>
+                    <li class="ml-3 font-medium text-indigo-600">
+                      <span>Ping me on <a class="underline" href="https://www.reddit.com/r/StepN/comments/xuc469/sneakers_market_analysis/" target="_blank">Reddit Topic</a> if you would like to contribute ideas to the tool</span>
+                    </li>
+                    <li class="ml-3 font-medium text-indigo-600">
+                      <span>There are only sneakers lv30 with comfort > 20 on this page</span>
+                    </li>
+                    <li class="ml-3 font-medium text-indigo-600">
+                      <span>The data here might be out-dated due to STEPN authentication problem. I will try to refresh the data as much as I can</span>
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>

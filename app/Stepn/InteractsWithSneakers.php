@@ -3,6 +3,7 @@
 namespace App\Stepn;
 
 use App\Pricing\Price;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 trait InteractsWithSneakers
@@ -50,7 +51,7 @@ trait InteractsWithSneakers
                 $solPrice
             ))
             ->where('otd', '>', 0)
-            ->where('comfort', '>', 300)
+            ->where('comfort', '>=', 200)
             ->where('level', '=', 30)
             ->orderByDesc('updated_at')
             ->orderByDesc('daily_earn')
@@ -69,9 +70,10 @@ trait InteractsWithSneakers
             // 0.15 is %HP reduce for 1 Energy
             // 2 is minimum Energy spent daily
             // 0.2 is 20% of GST cost to repair sneakers after running
-            $sneaker->daily_expense = $hp->getTotalInSol() / (78/(0.15*2)) + 0.2 * $sneaker->daily_earn;
+            $decay = (new HealthPointDecay($sneaker->comfort, $sneaker->quality))->getDecaySpeed();
+            $sneaker->daily_expense = $hp->getTotalInSol() / (78/($decay*2)) + 0.2 * $sneaker->daily_earn;
             $sneaker->daily_roi = ($sneaker->daily_earn - $sneaker->daily_expense) / $sneaker->price_sol * 100;
-            $sneaker->payback_period = \Carbon\Carbon::now()->addDays(100/$sneaker->daily_roi)->diffForHumans();
+            $sneaker->payback_period = Carbon::now()->addDays(100/$sneaker->daily_roi)->diffForHumans();
             $sneaker->apy = $sneaker->daily_roi * 365;
         });
 

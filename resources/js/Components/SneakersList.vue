@@ -23,9 +23,6 @@ const numberFormat = number => new Intl.NumberFormat().format(number)
           Attributes
         </div>
         <div class="flex items-end">
-          Base Attributes
-        </div>
-        <div class="flex items-end">
           Payback Period
         </div>
         <div class="flex items-end">
@@ -60,21 +57,6 @@ const numberFormat = number => new Intl.NumberFormat().format(number)
           </span>
           <span class="bg-indigo-100 text-indigo-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
             {{ numberFormat(sneaker.resilience / 10) }}
-          </span>
-        </div>
-
-        <div class="flex items-end">
-          <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
-            {{ numberFormat(sneaker.efficiency_base / 10) }}
-          </span>
-          <span class="bg-cyan-100 text-cyan-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
-            {{ numberFormat(sneaker.luck_base / 10) }}
-          </span>
-          <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
-            {{ numberFormat(sneaker.comfort_base / 10) }}
-          </span>
-          <span class="bg-indigo-100 text-indigo-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
-            {{ numberFormat(sneaker.resilience_base / 10) }}
           </span>
         </div>
 

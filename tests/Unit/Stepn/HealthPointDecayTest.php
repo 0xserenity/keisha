@@ -11,5 +11,8 @@ class HealthPointDecayTest extends TestCase
     {
         $this->assertEquals(0.75, (new HealthPointDecay(1))->getDecaySpeed());
         $this->assertEquals(0.18, (new HealthPointDecay(32))->getDecaySpeed());
+
+        $this->assertEquals(0.18, (new HealthPointDecay(32, 2))->getDecaySpeed());
+        $this->assertEquals(0.16, (new HealthPointDecay(44, 2))->getDecaySpeed());
     }
 }

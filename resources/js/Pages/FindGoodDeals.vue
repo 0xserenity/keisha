@@ -1,6 +1,5 @@
 <script setup>
 import AppLayout from '../Layouts/AppLayout.vue'
-import ActionSection from '../Components/ActionSection.vue'
 import SectionBorder from '../Components/SectionBorder.vue'
 import FormSection from '../Components/FormSection.vue'
 import InputLabel from '../Components/InputLabel.vue'
@@ -9,7 +8,7 @@ import InputError from '../Components/InputError.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import ActionMessage from '../Components/ActionMessage.vue'
 import PrimaryButton from '../Components/PrimaryButton.vue'
-import SneakersList from "../Components/SneakersList";
+import SneakersList from '../Components/SneakersList.vue'
 
 const props = defineProps({
   sneakers: Array
