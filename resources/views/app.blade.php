@@ -16,5 +16,8 @@
     </head>
     <body class="font-sans antialiased">
         @inertia
+        @if (app()->environment('production'))
+            <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "bffb87f1d64d4ab8829d3048df0eabec"}'></script><!-- End Cloudflare Web Analytics -->
+        @endif
     </body>
 </html>
