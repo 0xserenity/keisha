@@ -9,6 +9,7 @@ import InputError from '../Components/InputError.vue'
 import {useForm} from '@inertiajs/inertia-vue3'
 import ActionMessage from '../Components/ActionMessage.vue'
 import PrimaryButton from '../Components/PrimaryButton.vue'
+import SneakersList from "../Components/SneakersList";
 
 const props = defineProps({
   sneakers: Array
@@ -146,69 +147,7 @@ const getNewDeals = () => {
 
           <SectionBorder/>
 
-          <div v-if="sneakers.length > 0">
-            <ActionSection class="mt-10 sm:mt-0">
-              <template #title>
-                Deals
-              </template>
-
-              <template #description>
-                Here are good deals that we found on market at the moment
-              </template>
-
-              <template #content>
-                <div class="space-y-6">
-                  <div class="flex items-center justify-between">
-                    <div class="ml-4">
-                      ID
-                    </div>
-                    <div class="flex items-end">
-                      Level
-                    </div>
-                    <div class="flex items-end">
-                      Comfort
-                    </div>
-                    <div class="flex items-end">
-                      Payback Period
-                    </div>
-                    <div class="flex items-end">
-                      APY
-                    </div>
-                    <div class="flex items-end">
-                      Price SOL
-                    </div>
-                  </div>
-                  <div v-for="sneaker in sneakers" :key="sneaker.id" class="flex items-center justify-between">
-                    <div class="flex items-center">
-                      <div class="ml-4">
-                        {{ sneaker.otd }}
-                      </div>
-                    </div>
-
-                    <div class="flex items-end">
-                      {{ sneaker.level }}
-                    </div>
-
-                    <div class="flex items-end">
-                      {{ numberFormat(sneaker.comfort / 10) }}
-                    </div>
-
-                    <div class="flex items-end">
-                      {{ sneaker.payback_period }}
-                    </div>
-
-                    <div class="flex items-end">
-                      {{ numberFormat(sneaker.apy) }}%
-                    </div>
-
-                    <div class="flex items-end">
-                      {{ numberFormat(sneaker.price_sol) }}
-                    </div>
-                  </div>
-                </div>
-              </template>
-            </ActionSection>
-          </div>
+          <sneakers-list :sneakers="sneakers"/>
         </div>
       </div>
     </div>

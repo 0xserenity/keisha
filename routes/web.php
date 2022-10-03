@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GetNewDealsController;
+use App\Http\Controllers\Pages\DealsController;
 use App\Http\Controllers\Pages\FindGoodDealsController;
 use App\Http\Controllers\Pages\HealthPointRestoreCostCalculatorController;
 use App\Http\Controllers\HealthPointRestoreCostCalculateController;
@@ -36,14 +37,16 @@ Route::middleware([
     Route::get('/dashboard', function () {
         return Inertia::render('Dashboard');
     })->name('dashboard');
-});
 
-Route::get('/deals/find', FindGoodDealsController::class)
-    ->name('deals.find');
-Route::post('/deals/get', GetNewDealsController::class)
-    ->name('deals.get');
+    Route::get('/deals/find', FindGoodDealsController::class)
+        ->name('deals.find');
+    Route::post('/deals/get', GetNewDealsController::class)
+        ->name('deals.get');
+});
 
 Route::get('/hp', HealthPointRestoreCostCalculatorController::class)
     ->name('hp');
 Route::post('/hp/calculate', HealthPointRestoreCostCalculateController::class)
     ->name('hp.calculate');
+Route::get('/deals', DealsController::class)
+    ->name('deals');

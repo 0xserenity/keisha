@@ -7,14 +7,14 @@ use Illuminate\Http\Request;
 use Inertia\Response;
 use Laravel\Jetstream\Jetstream;
 
-class FindGoodDealsController
+class DealsController
 {
     use InteractsWithSneakers;
 
     public function __invoke(Request $request): Response
     {
         return Jetstream::inertia()
-            ->render($request, 'FindGoodDeals', [
+            ->render($request, 'Deals', [
                 'sneakers' => $this->getSneakers()
             ]);
     }
