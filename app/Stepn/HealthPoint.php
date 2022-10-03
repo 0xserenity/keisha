@@ -2,6 +2,8 @@
 
 namespace App\Stepn;
 
+use App\Pricing\Price;
+
 class HealthPoint
 {
     protected array $comfortGemRestoreMap = [
@@ -63,5 +65,10 @@ class HealthPoint
         return ceil($this->hpToRestore / $this->comfortGemRestoreMap[$this->sneaker][$this->gem]);
     }
 
-
+    public function getTotalInSol(): float|int
+    {
+        $costGstInUsd = $this->getQuantity() * $this->getCost() * Price::symbol('GST');
+        $costGemInSol = $this->getQuantity() * Price::symbol(sprintf('COMFORT%d', $this->gem));
+        return $costGstInUsd / Price::symbol('SOL') + $costGemInSol;
+    }
 }

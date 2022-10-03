@@ -162,23 +162,20 @@ const getNewDeals = () => {
                     <div class="ml-4">
                       ID
                     </div>
-                    <div class="flex items-center">
-                      Daily ROI
-                    </div>
-                    <div class="flex items-center">
+                    <div class="flex items-end">
                       Level
                     </div>
-                    <div class="flex items-center">
+                    <div class="flex items-end">
                       Comfort
                     </div>
-                    <div class="flex items-center">
-                      Comfort Max
+                    <div class="flex items-end">
+                      Payback Period
                     </div>
-                    <div class="flex items-center">
-                      Price
+                    <div class="flex items-end">
+                      APY
                     </div>
-                    <div class="flex items-center">
-                      Price Max
+                    <div class="flex items-end">
+                      Price SOL
                     </div>
                   </div>
                   <div v-for="sneaker in sneakers" :key="sneaker.id" class="flex items-center justify-between">
@@ -186,10 +183,6 @@ const getNewDeals = () => {
                       <div class="ml-4">
                         {{ sneaker.otd }}
                       </div>
-                    </div>
-
-                    <div class="flex items-end">
-                      {{ numberFormat(sneaker.daily_roi) }}
                     </div>
 
                     <div class="flex items-end">
@@ -201,15 +194,15 @@ const getNewDeals = () => {
                     </div>
 
                     <div class="flex items-end">
-                      {{ numberFormat(sneaker.comfort_max / 10) }}
+                      {{ sneaker.payback_period }}
+                    </div>
+
+                    <div class="flex items-end">
+                      {{ numberFormat(sneaker.apy) }}%
                     </div>
 
                     <div class="flex items-end">
                       {{ numberFormat(sneaker.price_sol) }}
-                    </div>
-
-                    <div class="flex items-end">
-                      {{ numberFormat(sneaker.price_max) }}
                     </div>
                   </div>
                 </div>
