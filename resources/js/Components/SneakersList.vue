@@ -3,13 +3,13 @@ const props = defineProps({
   sneakers: Array
 })
 
-const numberFormat = number => new Intl.NumberFormat().format(number)
+const numberFormat = number => parseFloat(number).toFixed(2)
 </script>
 
 <template>
   <div v-if="sneakers.length > 0">
     <div class="space-y-6 mt-6">
-      <div class="flex items-center justify-between">
+      <div class="flex flex-col md:flex-row items-center justify-between">
         <div class="ml-4">
           ID
         </div>
