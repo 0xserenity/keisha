@@ -29,7 +29,7 @@ const numberFormat = number => new Intl.NumberFormat().format(number)
           Price SOL
         </div>
       </div>
-      <div v-for="sneaker in sneakers" :key="sneaker.id" class="flex items-center justify-between">
+      <div v-for="sneaker in sneakers" :key="sneaker.id" class="flex flex-col md:flex-row items-center justify-between">
         <div class="flex items-center">
           <div class="ml-4">
             {{ sneaker.otd }}
