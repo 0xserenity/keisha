@@ -26,6 +26,9 @@ const numberFormat = number => parseFloat(number).toFixed(2)
           Type
         </div>
         <div class="flex items-end">
+          Comfort Sockets
+        </div>
+        <div class="flex items-end">
           Attributes
         </div>
         <div class="flex items-end">
@@ -52,6 +55,10 @@ const numberFormat = number => parseFloat(number).toFixed(2)
         </div>
 
         <div class="flex items-end">
+          {{ sneaker.comfort_socket }}
+        </div>
+
+        <div class="flex items-end">
           <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
             {{ numberFormat(sneaker.efficiency / 10) }}
           </span>
@@ -66,7 +73,7 @@ const numberFormat = number => parseFloat(number).toFixed(2)
           </span>
         </div>
 
-        <div class="flex items-end" @click="sneakerBeingViewed = sneaker">
+        <div class="flex items-end cursor-pointer" @click="sneakerBeingViewed = sneaker">
           {{ sneaker.daily_roi > 0 ? sneaker.payback_period : 'Not Profitable' }}
           <svg class="svg-icon ml-2 mb-1" viewBox="0 0 20 20">
             <path fill="none"

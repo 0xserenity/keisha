@@ -18,12 +18,14 @@ const props = defineProps({
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="overflow-hidden p-6">
-
           <div class="bg-indigo-100 rounded-lg">
             <div class="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
               <div class="flex flex-wrap items-center justify-between">
                 <div class="w-0 flex-1 items-center">
                   <ul class="list-disc">
+                    <li class="ml-3 font-medium text-indigo-600">
+                      <span>The data on this page is aiming for cheapest option to earn GMT</span>
+                    </li>
                     <li class="ml-3 font-medium text-indigo-600">
                       <span>This page is in progress (WIP)</span>
                     </li>
@@ -41,7 +43,6 @@ const props = defineProps({
               </div>
             </div>
           </div>
-
           <sneakers-list :sneakers="sneakers"/>
         </div>
       </div>

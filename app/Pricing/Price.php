@@ -17,4 +17,9 @@ class Price
     {
         return $amount * self::symbol('SOL') / self::symbol('GMT');
     }
+
+    public static function gmtToSol(float|int $amount): float|int
+    {
+        return $amount * self::symbol('GMT') / self::symbol('SOL');
+    }
 }
