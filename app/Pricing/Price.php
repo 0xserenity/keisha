@@ -12,4 +12,9 @@ class Price
             ->where('symbol', '=', $symbol)
             ->value('price');
     }
+
+    public static function solToGmt($amount): float|int
+    {
+        return $amount * self::symbol('SOL') / self::symbol('GMT');
+    }
 }

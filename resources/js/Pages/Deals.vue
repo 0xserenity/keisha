@@ -31,7 +31,7 @@ const props = defineProps({
                       <span>Ping me on <a class="underline" href="https://www.reddit.com/r/StepN/comments/xuc469/sneakers_market_analysis/" target="_blank">Reddit Topic</a> if you would like to contribute ideas to the tool</span>
                     </li>
                     <li class="ml-3 font-medium text-indigo-600">
-                      <span>There are only sneakers lv30 with comfort > 20 on this page</span>
+                      <span>There are only sneakers lv30 with comfort >= 28 on this page</span>
                     </li>
                     <li class="ml-3 font-medium text-indigo-600">
                       <span>The data here might be out-dated due to STEPN authentication problem. I will try to refresh the data as much as I can</span>
