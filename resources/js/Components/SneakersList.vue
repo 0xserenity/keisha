@@ -32,48 +32,50 @@ const numberFormat = number => parseFloat(number).toFixed(2)
           Attributes
         </div>
         <div class="flex items-end">
+          Fresh?
+        </div>
+        <div class="flex items-end">
           Payback Period
         </div>
         <div class="flex items-end">
           Price SOL
         </div>
       </div>
-      <div v-for="sneaker in sneakers" :key="sneaker.id" class="flex flex-col md:flex-row items-center justify-between">
+      <div v-for="sneaker in sneakers" :key="sneaker.id" class="flex flex-col md:flex-row items-center justify-between bg-white rounded-lg p-6 shadow-sm">
         <div class="flex items-center">
           <div class="ml-4">
             {{ sneaker.otd }}
           </div>
         </div>
 
-        <div class="flex items-end">
+        <div class="flex items-start">
           {{ sneaker.level }}
         </div>
 
-        <div class="flex items-end">
+        <div class="flex items-start">
           {{ ['', 'Common', 'Uncommon', 'Rare', 'Epic', 'Legendary'][sneaker.quality] }}
           {{ ['', 'Walker', 'Jogger', 'Runner', 'Trainer'][sneaker.type] }}
         </div>
 
-        <div class="flex items-end">
-          {{ sneaker.comfort_socket }}
+        <div class="flex-row items-start">
+          <span v-if="sneaker.comfort_socket > 0" class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
+            {{ sneaker.comfort_socket }} 💎
+          </span>
         </div>
 
-        <div class="flex items-end">
-          <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
-            {{ numberFormat(sneaker.efficiency / 10) }}
-          </span>
-          <span class="bg-cyan-100 text-cyan-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
-            {{ numberFormat(sneaker.luck / 10) }}
-          </span>
+        <div class="flex-row items-start">
           <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
             {{ numberFormat(sneaker.comfort / 10) }}
           </span>
-          <span class="bg-indigo-100 text-indigo-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
-            {{ numberFormat(sneaker.resilience / 10) }}
+        </div>
+
+        <div class="flex items-start">
+          <span v-if="sneaker.is_fresh" class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
+            Fresh 🥬
           </span>
         </div>
 
-        <div class="flex items-end cursor-pointer" @click="sneakerBeingViewed = sneaker">
+        <div class="flex items-start cursor-pointer" @click="sneakerBeingViewed = sneaker">
           {{ sneaker.daily_roi > 0 ? sneaker.payback_period : 'Not Profitable' }}
           <svg class="svg-icon ml-2 mb-1" viewBox="0 0 20 20">
             <path fill="none"
@@ -82,7 +84,9 @@ const numberFormat = number => parseFloat(number).toFixed(2)
         </div>
 
         <div class="flex items-end">
-          {{ numberFormat(sneaker.price_sol) }}
+          <span class="bg-purple-100 text-purple-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
+            {{ numberFormat(sneaker.price_sol) }}
+          </span>
         </div>
       </div>
     </div>
@@ -102,7 +106,7 @@ const numberFormat = number => parseFloat(number).toFixed(2)
           Daily Earning: {{ numberFormat(sneakerBeingViewed.daily_earn_gmt) }} GMT
         </li>
         <li>
-          Daily Maintenance Cost: {{ numberFormat(sneakerBeingViewed.daily_expense_gmt) }} GMT
+          Daily Maintenance Cost: {{ numberFormat(sneakerBeingViewed.daily_expense_gmt) }} GMT (incl. {{ numberFormat(sneakerBeingViewed.daily_repair_gst) }} GST repair cost)
         </li>
         <li>
           Daily Net Profit: {{ numberFormat(sneakerBeingViewed.daily_earn_gmt - sneakerBeingViewed.daily_expense_gmt) }}

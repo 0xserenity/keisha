@@ -22,4 +22,9 @@ class Price
     {
         return $amount * self::symbol('GMT') / self::symbol('SOL');
     }
+
+    public static function solToGst(float $amount): float
+    {
+        return $amount * self::symbol('SOL') / self::symbol('GST');
+    }
 }

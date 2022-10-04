@@ -23,32 +23,29 @@ const availableFilters = [
   {
     key: 1,
     name: 'Lv30 Uncommon',
-    description: 'Good earner deals. Rushing'
+    description: 'Good liquidity. Rushing'
   },
   {
     key: 2,
     name: 'Lv30 Common',
-    description: 'Cheapest deals. Rushing'
+    description: 'Good liquidity. Rushing'
   },
   {
     key: 3,
-    name: 'Lv29 Common',
-    description: 'Cheapest deals. No rush'
+    name: 'Lv30 Rare',
+    description: 'Good liquidity. Rushing'
   },
   {
     key: 4,
-    name: 'Lv29 Uncommon',
-    description: 'Good earner deals. No rush'
+    name: 'Lv30 Epic',
+    description: 'Good liquidity. Rushing'
   },
 ]
-
-const numberFormat = number => new Intl.NumberFormat().format(number)
 
 const getNewDeals = () => {
   getNewDealsForm.post(route('deals.get'), {
     errorBag: 'getNewDeals',
-    preserveScroll: true,
-    onSuccess: () => getNewDealsForm.reset('filter'),
+    preserveScroll: true
   })
 }
 

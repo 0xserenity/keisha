@@ -66,7 +66,7 @@ class ApiClient
         );
     }
 
-    public function getOrderList($filter = null): Collection
+    public function getOrderList($filter = 1): Collection
     {
         switch ($filter) {
             case 1:
@@ -75,15 +75,15 @@ class ApiClient
                 return collect(json_decode((string)$response->getBody(), true));
             case 2:
             case '30c': // 30 Common
-                $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=1&level=31031&bread=0');
+                $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=1&level=31031&bread=1008');
                 return collect(json_decode((string)$response->getBody(), true));
             case 3:
-            case '29c': // 29 Common
-                $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=1&level=30030&bread=0');
+            case '30r': // 30 Rare
+                $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=3&level=31031&bread=0');
                 return collect(json_decode((string)$response->getBody(), true));
             case 4:
-            case '29u': // 29 Uncommon
-                $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=2&level=30030&bread=1008');
+            case '30e': // 30 Epic
+                $response = $this->sendRequest('GET', '/run/orderlist?order=2001&chain=103&refresh=true&page=0&otd=&type=600&gType=&quality=4&level=31031&bread=1008');
                 return collect(json_decode((string)$response->getBody(), true));
         }
 
