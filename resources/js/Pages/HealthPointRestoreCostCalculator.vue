@@ -1,7 +1,5 @@
 <script setup>
 import AppLayout from '../Layouts/HeadlessAppLayout.vue'
-import ActionSection from '../Components/ActionSection.vue'
-import SectionBorder from '../Components/SectionBorder.vue'
 import FormSection from '../Components/FormSection.vue'
 import InputLabel from '../Components/InputLabel.vue'
 import TextInput from '../Components/TextInput.vue'
@@ -11,9 +9,9 @@ import ActionMessage from '../Components/ActionMessage.vue'
 import PrimaryButton from '../Components/PrimaryButton.vue'
 
 const getHpRestoreCostForm = useForm({
-  hp: 80,
+  hp: 78,
   quality: 1,
-  gem: 1
+  gem: 2
 })
 
 const qualities = [
@@ -85,6 +83,19 @@ const calculate = () => {
                 <li>Select comfort gem level that you want to use</li>
                 <li>Hit the "Calculate" button to see the result</li>
               </ul>
+
+              <div class="bg-indigo-100 rounded-lg mt-6">
+                <div class="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
+                  <div class="flex flex-wrap items-center justify-between">
+                    <div class="w-0 flex-1 items-center text-indigo-600">
+                      <h3 class="text-xl">Pro Tip</h3>
+                      <div class="mt-3">
+                        The best time to restore HP is at 22%. Use comfort gem level 2.
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </template>
 
             <template #form>

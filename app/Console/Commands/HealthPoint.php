@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Pricing\Price;
+use App\Stepn\HealthPoint as StepnHealthPoint;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class HealthPoint extends Command
 {
@@ -34,7 +34,7 @@ class HealthPoint extends Command
 
     public function handle()
     {
-        $hp = new \App\Stepn\HealthPoint(
+        $hp = new StepnHealthPoint(
             $this->argument('hp'),
             $this->argument('sneaker'),
             $this->argument('gem')
@@ -45,7 +45,7 @@ class HealthPoint extends Command
         $gstPrice = Price::symbol('GST');
 
         $this->info(
-            sprintf('To restore %d%% HP using comfort gem level %d, we need:||', $this->argument('hp'), $this->argument('gem'))
+            sprintf('To restore %01.2f%% HP using comfort gem level %d, we need:||', $this->argument('hp'), $this->argument('gem'))
         );
 
         $this->info(

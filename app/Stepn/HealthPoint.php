@@ -46,9 +46,9 @@ class HealthPoint
 
     protected int $sneaker;
 
-    protected int $hpToRestore = 80;
+    protected float $hpToRestore = 78;
 
-    public function __construct($hp = 80, $sneaker = 1, $gem = 1)
+    public function __construct($hp = 78, $sneaker = 1, $gem = 1)
     {
         $this->hpToRestore = $hp;
         $this->sneaker = $sneaker;
