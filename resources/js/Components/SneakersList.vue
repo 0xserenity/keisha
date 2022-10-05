@@ -75,7 +75,7 @@ const numberFormat = number => parseFloat(number).toFixed(2)
           </span>
         </div>
 
-        <div class="flex items-start cursor-pointer" @click="sneakerBeingViewed = sneaker">
+        <div class="flex items-start cursor-pointer" :class="{'bg-green-100': (sneaker.daily_roi < sneaker.daily_roi_max)}" @click="sneakerBeingViewed = sneaker">
           {{ sneaker.daily_roi > 0 ? sneaker.payback_period : 'Not Profitable' }}
           <svg class="svg-icon ml-2 mb-1" viewBox="0 0 20 20">
             <path fill="none"
@@ -113,8 +113,24 @@ const numberFormat = number => parseFloat(number).toFixed(2)
           GMT
         </li>
       </ul>
-      <div class="text-gray-400 mt-3 mb-3">
-        ** Numbers based on minimum 2E daily
+
+      <ul class="mt-3" v-if="sneakerBeingViewed.daily_roi < sneakerBeingViewed.daily_roi_max">
+        <li>
+          Potential APY: {{ numberFormat(sneakerBeingViewed.apy_max) }}%
+        </li>
+        <li>
+          Daily Earning: {{ numberFormat(sneakerBeingViewed.daily_earn_max_gmt) }} GMT
+        </li>
+        <li>
+          Daily Maintenance Cost: {{ numberFormat(sneakerBeingViewed.daily_expense_gmt) }} GMT (incl. {{ numberFormat(sneakerBeingViewed.daily_repair_gst) }} GST repair cost)
+        </li>
+        <li>
+          Daily Net Profit: {{ numberFormat(sneakerBeingViewed.daily_earn_max_gmt - sneakerBeingViewed.daily_expense_gmt) }}
+          GMT
+        </li>
+      </ul>
+      <div class="text-gray-400 mt-3 mb-3 text-sm">
+        Numbers based on minimum 2E daily
       </div>
     </template>
 
