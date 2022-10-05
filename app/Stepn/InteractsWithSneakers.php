@@ -128,15 +128,15 @@ trait InteractsWithSneakers
         }
 
         if ($comfort < 1000) {
-            return 1.18;
+            return 1.16;
         }
 
         if ($comfort < 2000) {
-            return 1.67;
+            return 1.65;
         }
 
         if ($comfort < 3000) {
-            return 2.24;
+            return 2.2;
         }
 
         if ($comfort < 4000) {
