@@ -149,4 +149,12 @@ trait InteractsWithSneakers
 
         return 3.71;
     }
+
+    public function getLastSync(): string
+    {
+        return Carbon::parse(DB::table('sneakers')
+            ->orderByDesc('updated_at')
+            ->limit(1)
+            ->value('updated_at'))->diffForHumans();
+    }
 }

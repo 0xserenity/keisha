@@ -3,8 +3,10 @@ import AppLayout from '../Layouts/HeadlessAppLayout.vue'
 import SneakersList from '../Components/SneakersList.vue'
 
 const props = defineProps({
-  sneakers: Array
+  sneakers: Array,
+  lastSync: String
 })
+
 </script>
 
 <template>
@@ -28,6 +30,9 @@ const props = defineProps({
                     </li>
                     <li class="ml-3 font-medium text-indigo-600">
                       <span>Estimate earning based on running shares on Twitter and Reddit</span>
+                    </li>
+                    <li class="ml-3 font-medium text-indigo-600">
+                      <span>Last Sync: {{ lastSync }}</span>
                     </li>
                   </ul>
                 </div>
