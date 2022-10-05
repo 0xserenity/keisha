@@ -16,7 +16,8 @@ class DealsController
         return Jetstream::inertia()
             ->render($request, 'Deals', [
                 'sneakers' => $this->getSneakers(),
-                'lastSync' => $this->getLastSync()
+                'lastSync' => $this->getLastSync(),
+                'floorPrices' => $this->getFloorPrices()
             ]);
     }
 }

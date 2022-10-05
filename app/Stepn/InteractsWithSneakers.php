@@ -90,6 +90,9 @@ trait InteractsWithSneakers
             // Calculate payback period
             $sneaker->payback_period = Carbon::now()->addDays(100 / $sneaker->daily_roi)->diffForHumans();
             $sneaker->payback_period_max = Carbon::now()->addDays(100 / $sneaker->daily_roi_max)->diffForHumans();
+
+            // Calculate liquidity
+            $sneaker->liquidity = $this->getFloorPrices()[$sneaker->quality] / $sneaker->price_sol;
         });
 
         return $sneakers
@@ -156,5 +159,15 @@ trait InteractsWithSneakers
             ->orderByDesc('updated_at')
             ->limit(1)
             ->value('updated_at'))->diffForHumans();
+    }
+
+    public function getFloorPrices(): array
+    {
+        return [
+            1 => Price::floorSol(),
+            2 => Price::floorSol(2),
+            3 => Price::floorSol(3),
+            4 => Price::floorSol(4)
+        ];
     }
 }

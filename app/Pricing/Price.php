@@ -27,4 +27,14 @@ class Price
     {
         return $amount * self::symbol('SOL') / self::symbol('GST');
     }
+
+    public static function floorSol(int $quality = 1, int $level = 30): float|int
+    {
+        return DB::table('sneakers')
+                ->where('quality', $quality)
+                ->where('level', $level)
+                ->orderBy('price')
+                ->limit(1)
+                ->value('price') / 1000000;
+    }
 }
