@@ -45,6 +45,7 @@ trait InteractsWithSneakers
                 $query->where('is_fresh', '=', true)
                     ->orWhere('comfort', '>=', 280);
             })
+            ->where('updated_at', '>', now()->subDay())
             ->orderByDesc('updated_at')
             ->orderByDesc('comfort_max')
             ->orderBy('price_max_sol')
