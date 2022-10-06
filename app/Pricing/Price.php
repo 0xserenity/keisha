@@ -37,4 +37,9 @@ class Price
                 ->limit(1)
                 ->value('price') / 1000000;
     }
+
+    public static function gstToSol($amount): float|int
+    {
+        return $amount * self::symbol('GST') / self::symbol('SOL');
+    }
 }

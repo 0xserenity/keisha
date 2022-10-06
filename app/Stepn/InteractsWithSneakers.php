@@ -77,8 +77,9 @@ trait InteractsWithSneakers
 
             // Calculate expense
 
-            $sneaker->daily_repair_gst = Price::solToGst(0.2 * $sneaker->daily_earn_sol);
-            $sneaker->daily_expense_sol = $hp->getTotalInSol() / (78 / ($decay * $energy)) + 0.2 * $sneaker->daily_earn_sol;
+            $repair = new Repair($sneaker->resilience, $sneaker->quality);
+            $sneaker->daily_repair_gst = $repair->getCostGst();
+            $sneaker->daily_expense_sol = $hp->getTotalInSol() / (78 / ($decay * $energy)) + Price::gstToSol($sneaker->daily_repair_gst);
             $sneaker->daily_expense_gmt = Price::solToGmt($sneaker->daily_expense_sol);
 
             // Calculate ROI
