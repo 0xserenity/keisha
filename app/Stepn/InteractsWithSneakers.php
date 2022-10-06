@@ -136,11 +136,11 @@ trait InteractsWithSneakers
         }
 
         if ($comfort < 2000) {
-            return 1.65;
+            return 1.62;
         }
 
         if ($comfort < 3000) {
-            return 2.2;
+            return 2.19;
         }
 
         if ($comfort < 4000) {
@@ -151,7 +151,7 @@ trait InteractsWithSneakers
             return 3.29;
         }
 
-        return 3.71;
+        return 3.53;
     }
 
     public function getLastSync(): string
