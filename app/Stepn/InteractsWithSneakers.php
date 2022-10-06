@@ -45,13 +45,13 @@ trait InteractsWithSneakers
                 $query->where('is_fresh', '=', true)
                     ->orWhere('comfort', '>=', 280);
             })
-            ->where('updated_at', '>', now()->subDay())
+            ->where('updated_at', '>', now()->subHours(12))
             ->orderByDesc('updated_at')
             ->orderByDesc('comfort_max')
             ->orderBy('price_max_sol')
             ->get();
 
-        $sneakers->map(function ($sneaker) {
+        $sneakers->map(function ($sneaker) use ($gemBoostPercentage, $gemBoost, $gemPrice) {
             $hp = new HealthPoint(
                 78,
                 $sneaker->quality,
@@ -66,8 +66,8 @@ trait InteractsWithSneakers
 
             // Overriding comfort_max if sneakers fresh
             if ($sneaker->is_fresh) {
-                $sneaker->comfort_max = $sneaker->comfort + $this->getAvailableComfort($sneaker->quality);
-                $sneaker->comfort = $sneaker->comfort_max;
+                $sneaker->comfort = $sneaker->comfort + $this->getAvailableComfort($sneaker->quality);
+                $sneaker->comfort_max = $sneaker->comfort + ($sneaker->comfort_base * $gemBoostPercentage + $gemBoost) * $sneaker->comfort_socket;
             }
 
             // Calculate earning
