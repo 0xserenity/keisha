@@ -71,8 +71,8 @@ trait InteractsWithSneakers
             }
 
             // Calculate earning
-            $sneaker->daily_earn_gmt = $this->calculateDailyEarnGmt($sneaker->comfort) * $energy;
-            $sneaker->daily_earn_max_gmt = $this->calculateDailyEarnGmt($sneaker->comfort_max) * $energy;
+            $sneaker->daily_earn_gmt = $this->calculateDailyEarnGmt($sneaker->comfort) * $energy * 0.4;
+            $sneaker->daily_earn_max_gmt = $this->calculateDailyEarnGmt($sneaker->comfort_max) * $energy * 0.4;
             $sneaker->daily_earn_sol = Price::gmtToSol($sneaker->daily_earn_gmt);
             $sneaker->daily_earn_max_sol = Price::gmtToSol($sneaker->daily_earn_max_gmt);
 
