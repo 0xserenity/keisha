@@ -77,7 +77,6 @@ trait InteractsWithSneakers
             $sneaker->daily_earn_max_sol = Price::gmtToSol($sneaker->daily_earn_max_gmt);
 
             // Calculate expense
-
             $repair = new Repair($sneaker->resilience, $sneaker->quality);
             $sneaker->daily_repair_gst = $repair->getCostGst();
             $sneaker->daily_expense_sol = $hp->getTotalInSol() / (78 / ($decay * $energy)) + Price::gstToSol($sneaker->daily_repair_gst);
@@ -170,10 +169,7 @@ trait InteractsWithSneakers
     public function getFloorPrices(): array
     {
         return [
-            1 => Price::floorSol(),
-            2 => Price::floorSol(2),
-            3 => Price::floorSol(3),
-            4 => Price::floorSol(4)
+
         ];
     }
 }
