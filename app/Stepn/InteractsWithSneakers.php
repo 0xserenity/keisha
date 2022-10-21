@@ -169,7 +169,10 @@ trait InteractsWithSneakers
     public function getFloorPrices(): array
     {
         return [
-
+             1 => Price::floorSol(),
+             2 => Price::floorSol(2),
+             3 => Price::floorSol(3),
+             4 => Price::floorSol(4)
         ];
     }
 }
