@@ -1,8 +1,10 @@
 # Keisha
 
-STEPN NFT market analysis tool
+An assistant app that help play STEPN better
 
-# Concepts
+<img width="643" alt="image" src="https://user-images.githubusercontent.com/86779613/197101182-25e91171-94ae-4a3a-b82c-d7c0a839f62a.png">
 
-* Today is a good day to go out <3
-* Test auto deployment
+# Features
+
+* Find sneakers on market place focusing on GMT earning
+* Calculate HP restore cost
