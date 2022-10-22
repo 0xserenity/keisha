@@ -10,14 +10,14 @@ const props = defineProps({
 </script>
 
 <template>
-  <AppLayout title="Cheapest STEPN Sneakers To Earn GMT On Market">
+  <AppLayout title="GMT Deals">
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Cheapest STEPN Sneakers To Earn GMT On Market
+        GMT Deals
       </h2>
     </template>
 
-    <div class="py-12">
+    <div class="py-3">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="overflow-hidden p-6">
           <div class="bg-indigo-100 rounded-lg">
@@ -25,12 +25,6 @@ const props = defineProps({
               <div class="flex flex-wrap items-center justify-between">
                 <div class="w-0 flex-1 items-center">
                   <ul class="list-disc">
-                    <li class="ml-3 font-medium text-indigo-600">
-                      <span>Only sneakers lv30 with comfort >= 28</span>
-                    </li>
-                    <li class="ml-3 font-medium text-indigo-600">
-                      <span>Estimate earning based on running shares on Twitter and Reddit</span>
-                    </li>
                     <li class="ml-3 font-medium text-indigo-600">
                       <span>Last Sync: {{ lastSync }}</span>
                     </li>

@@ -19,32 +19,6 @@ const numberFormat = number => parseFloat(number).toFixed(2)
 <template>
   <div v-if="sneakers.length > 0">
     <div class="space-y-6 mt-6">
-      <div class="flex flex-col md:flex-row items-center justify-between">
-        <div class="ml-4">
-          ID
-        </div>
-        <div class="flex items-end">
-          Level
-        </div>
-        <div class="flex items-end">
-          Type
-        </div>
-        <div class="flex items-end">
-          Comfort Sockets
-        </div>
-        <div class="flex items-end">
-          Comfort
-        </div>
-        <div class="flex items-end">
-          Fresh?
-        </div>
-        <div class="flex items-end">
-          Financial
-        </div>
-        <div class="flex items-end">
-          Price SOL
-        </div>
-      </div>
       <div v-for="sneaker in sneakers" :key="sneaker.id" class="flex flex-col md:flex-row items-center justify-between bg-white rounded-lg p-6 shadow-sm">
         <div class="flex items-center">
           <div class="ml-4">

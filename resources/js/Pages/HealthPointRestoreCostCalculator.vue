@@ -61,41 +61,23 @@ const calculate = () => {
 </script>
 
 <template>
-  <AppLayout title="STEPN HP Restore Cost Calculator">
+  <AppLayout title="Health Point">
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        STEPN HP Restore Cost Calculator
+        Health Point
       </h2>
     </template>
 
-    <div class="py-12">
+    <div class="py-3">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="overflow-hidden p-6">
           <FormSection @submitted="calculate">
             <template #title>
-              Guide
+
             </template>
 
             <template #description>
-              <ul class="mt-3 space-y-1">
-                <li>Enter % HP that need to be restored</li>
-                <li>Select sneakers' quality</li>
-                <li>Select comfort gem level that you want to use</li>
-                <li>Hit the "Calculate" button to see the result</li>
-              </ul>
 
-              <div class="bg-indigo-100 rounded-lg mt-6">
-                <div class="mx-auto max-w-7xl py-3 px-3 sm:px-6 lg:px-8">
-                  <div class="flex flex-wrap items-center justify-between">
-                    <div class="w-0 flex-1 items-center text-indigo-600">
-                      <h3 class="text-xl">Pro Tip</h3>
-                      <div class="mt-3">
-                        The best time to restore HP is at 22%. Use comfort gem level 2.
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </template>
 
             <template #form>
