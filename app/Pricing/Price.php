@@ -6,9 +6,9 @@ use Illuminate\Support\Facades\DB;
 
 class Price
 {
-    public static function symbol(string $symbol)
+    public static function symbol(string $symbol): float
     {
-        return DB::table('pricing')
+        return (float) DB::table('pricing')
             ->where('symbol', '=', $symbol)
             ->value('price');
     }

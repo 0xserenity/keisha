@@ -44,22 +44,43 @@ class Pricing extends Command
     public function handle()
     {
         $prices = Arr::pluck($this->cmcClient->getQuotes()->get('data'), 'quote.USD.price');
+
         DB::table('pricing')
             ->upsert(
                 [
                     [
-                        'symbol' => 'SOL',
+                        'symbol' => 'BTC',
                         'price' => $prices[0],
                         'updated_at' => Carbon::now()
                     ],
                     [
-                        'symbol' => 'GST',
+                        'symbol' => 'BNB',
                         'price' => $prices[1],
                         'updated_at' => Carbon::now()
                     ],
                     [
-                        'symbol' => 'GMT',
+                        'symbol' => 'SOL',
                         'price' => $prices[2],
+                        'updated_at' => Carbon::now()
+                    ],
+                    [
+                        'symbol' => 'AXS',
+                        'price' => $prices[3],
+                        'updated_at' => Carbon::now()
+                    ],
+                    [
+                        'symbol' => 'ACH',
+                        'price' => $prices[4],
+                        'updated_at' => Carbon::now()
+                    ],
+                    [
+                        'symbol' => 'GST',
+                        'price' => $prices[5],
+                        'updated_at' => Carbon::now()
+                    ],
+                    [
+                        'symbol' => 'GMT',
+                        'price' => $prices[6],
                         'updated_at' => Carbon::now()
                     ]
                 ],
