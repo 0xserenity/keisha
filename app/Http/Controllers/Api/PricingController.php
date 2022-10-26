@@ -16,6 +16,8 @@ class PricingController
             'BNB' => Price::symbol('BNB'),
             'ACH' => Price::symbol('ACH'),
             'AXS' => Price::symbol('AXS'),
+            'AUD' => Price::aud(),
+            'BUSD' => Price::busd()
         ]);
     }
 }

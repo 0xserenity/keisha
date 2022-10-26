@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Pricing\BinanceP2PClient;
 use App\Pricing\CoinMarketCapApiClient;
 use App\Pricing\StepnfpdotcomClient;
 use Carbon\Carbon;
@@ -45,45 +46,63 @@ class Pricing extends Command
     {
         $prices = Arr::pluck($this->cmcClient->getQuotes()->get('data'), 'quote.USD.price');
 
+        $data = [
+            [
+                'symbol' => 'BTC',
+                'price' => $prices[0],
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'symbol' => 'BNB',
+                'price' => $prices[1],
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'symbol' => 'SOL',
+                'price' => $prices[2],
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'symbol' => 'AXS',
+                'price' => $prices[3],
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'symbol' => 'ACH',
+                'price' => $prices[4],
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'symbol' => 'AUD',
+                'price' => $prices[5],
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'symbol' => 'GST',
+                'price' => $prices[6],
+                'updated_at' => Carbon::now()
+            ],
+            [
+                'symbol' => 'GMT',
+                'price' => $prices[7],
+                'updated_at' => Carbon::now()
+            ]
+        ];
+
+        $binanceP2PClient = new BinanceP2PClient();
+        $binancePrices = $binanceP2PClient->getQuotes()->get('data');
+
+        if (isset($binancePrices[0]['adv']['price'])) {
+            $data[] = [
+                'symbol' => 'BUSD',
+                'price' => (float)$binancePrices[0]['adv']['price'],
+                'updated_at' => Carbon::now()
+            ];
+        }
+
         DB::table('pricing')
             ->upsert(
-                [
-                    [
-                        'symbol' => 'BTC',
-                        'price' => $prices[0],
-                        'updated_at' => Carbon::now()
-                    ],
-                    [
-                        'symbol' => 'BNB',
-                        'price' => $prices[1],
-                        'updated_at' => Carbon::now()
-                    ],
-                    [
-                        'symbol' => 'SOL',
-                        'price' => $prices[2],
-                        'updated_at' => Carbon::now()
-                    ],
-                    [
-                        'symbol' => 'AXS',
-                        'price' => $prices[3],
-                        'updated_at' => Carbon::now()
-                    ],
-                    [
-                        'symbol' => 'ACH',
-                        'price' => $prices[4],
-                        'updated_at' => Carbon::now()
-                    ],
-                    [
-                        'symbol' => 'GST',
-                        'price' => $prices[5],
-                        'updated_at' => Carbon::now()
-                    ],
-                    [
-                        'symbol' => 'GMT',
-                        'price' => $prices[6],
-                        'updated_at' => Carbon::now()
-                    ]
-                ],
+                $data,
                 ['symbol'],
                 ['price', 'updated_at']
             );

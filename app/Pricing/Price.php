@@ -8,7 +8,7 @@ class Price
 {
     public static function symbol(string $symbol): float
     {
-        return (float) DB::table('pricing')
+        return (float)DB::table('pricing')
             ->where('symbol', '=', $symbol)
             ->value('price');
     }
@@ -41,5 +41,15 @@ class Price
     public static function gstToSol($amount): float|int
     {
         return $amount * self::symbol('GST') / self::symbol('SOL');
+    }
+
+    public static function aud(): float
+    {
+        return (1 / self::symbol('AUD') + 0.01) * 1.006;
+    }
+
+    public static function busd(): float
+    {
+        return self::symbol('BUSD') * (1 - 0.0015);
     }
 }
