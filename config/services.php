@@ -33,6 +33,10 @@ return [
 
     'coinmarketcap' => [
         'key' => env('COINMARKETCAP_KEY')
+    ],
+
+    'hashing' => [
+        'secret' => env('HASHING_SECRET')
     ]
 
 ];

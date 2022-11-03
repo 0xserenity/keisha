@@ -103,4 +103,14 @@ class ApiClient
     {
         $this->sessionID = $sessionId;
     }
+
+    public function login(string $hash)
+    {
+        $response = $this->sendRequest(
+            'GET',
+            sprintf('/run/login?account=theanhdo94@gmail.com&password=%s&type=4&deviceInfo=web', $hash)
+        );
+
+        return collect(json_decode((string)$response->getBody(), true));
+    }
 }
