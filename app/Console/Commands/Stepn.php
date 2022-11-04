@@ -14,7 +14,7 @@ class Stepn extends Command
      *
      * @var string
      */
-    protected $signature = 'stepn {sessionID} {filter?}';
+    protected $signature = 'stepn {filter?}';
 
     /**
      * The console command description.
@@ -38,8 +38,6 @@ class Stepn extends Command
 
     public function handle()
     {
-        $this->api->setSessionID($this->argument('sessionID'));
-
         collect($this->api->getOrderList($this->argument('filter'))->get('data'))->each(function ($order) {
             $this->info(sprintf('Creating data for order %s', $order['propID']));
             $this->createOrderData($order);

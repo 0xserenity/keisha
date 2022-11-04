@@ -4,6 +4,7 @@ namespace App\Stepn;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
+use LogicException;
 use Psr\Http\Message\ResponseInterface;
 
 class ApiClient
@@ -12,7 +13,25 @@ class ApiClient
 
     protected string $baseUrl = 'https://api.stepn.com/';
 
-    protected string $sessionID = 'cMFikOGSVogEQAfv%3A1664534474753%3A16634';
+    protected string $sessionID = '';
+
+    public function __construct()
+    {
+        $this->loadSessionIDFromConfig();
+    }
+
+    public function loadSessionIDFromConfig(): void
+    {
+        $config = include config_path('stepn.php');
+        $duration = (time() - $config['epoch']) / 3600;
+
+        if ($duration <= 1) {
+            $this->sessionID = $config['sessionID'];
+            return;
+        }
+
+        throw new LogicException('Session Expired');
+    }
 
     public function getBaseUrl(): string
     {
@@ -104,13 +123,19 @@ class ApiClient
         $this->sessionID = $sessionId;
     }
 
-    public function login(string $hash)
+    public function login(string $hash, string $email)
     {
         $response = $this->sendRequest(
             'GET',
-            sprintf('/run/login?account=theanhdo94@gmail.com&password=%s&type=4&deviceInfo=web', $hash)
+            sprintf('/run/login?account=%s&password=%s&type=4&deviceInfo=web', $email, $hash)
         );
 
-        return collect(json_decode((string)$response->getBody(), true));
+        $body = collect(json_decode((string)$response->getBody(), true))->toArray();
+        $sessionId = $body['data']['sessionID'];
+
+        $this->setSessionID($sessionId);
+
+        $code = '<?php return ' . var_export(['sessionID' => $sessionId, 'epoch' => time()], true) . ';' . PHP_EOL;
+        file_put_contents(config_path('stepn.php'), $code);
     }
 }

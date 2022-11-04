@@ -48,7 +48,7 @@ class Hash extends Command
 
         $hash = $data->get('hash');
         
-        $data = $stepn->login($hash);
+        $data = $stepn->login($hash, $this->argument('email'));
         dd($data);
     }
 }
