@@ -36,7 +36,8 @@ return [
     ],
 
     'hashing' => [
-        'secret' => env('HASHING_SECRET')
+        'secret' => env('HASHING_SECRET'),
+        'email' => env('HASHING_EMAIL')
     ]
 
 ];

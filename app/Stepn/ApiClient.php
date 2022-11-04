@@ -4,7 +4,6 @@ namespace App\Stepn;
 
 use GuzzleHttp\Client;
 use Illuminate\Support\Collection;
-use LogicException;
 use Psr\Http\Message\ResponseInterface;
 
 class ApiClient
@@ -30,7 +29,7 @@ class ApiClient
             return;
         }
 
-        throw new LogicException('Session Expired');
+        info('Session Expired');
     }
 
     public function getBaseUrl(): string
@@ -131,11 +130,14 @@ class ApiClient
         );
 
         $body = collect(json_decode((string)$response->getBody(), true))->toArray();
-        $sessionId = $body['data']['sessionID'];
 
-        $this->setSessionID($sessionId);
+        if(isset($body['data']['sessionID'])) {
+            $sessionId = $body['data']['sessionID'];
 
-        $code = '<?php return ' . var_export(['sessionID' => $sessionId, 'epoch' => time()], true) . ';' . PHP_EOL;
-        file_put_contents(config_path('stepn.php'), $code);
+            $this->setSessionID($sessionId);
+
+            $code = '<?php return ' . var_export(['sessionID' => $sessionId, 'epoch' => time()], true) . ';' . PHP_EOL;
+            file_put_contents(config_path('stepn.php'), $code);
+        }
     }
 }
