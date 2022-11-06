@@ -17,6 +17,9 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('pricing')
             ->hourly();
+
+        $schedule->command('stepn:token')
+            ->dailyAt(7);
     }
 
     /**

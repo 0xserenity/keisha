@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Jobs\LoadSneakersListFromStepnApi;
 use App\Stepn\ApiClient;
 use App\Stepn\HashingService;
 use Illuminate\Http\JsonResponse;
@@ -26,6 +27,9 @@ class StepnLoginController
         $token = include(config_path('stepn.php'));
 
         if (isset($token['epoch']) && (time() - $token['epoch']) / 3600 <= 1) {
+
+            dispatch(new LoadSneakersListFromStepnApi());
+
             return response()->json([
                 'success' => true
             ]);
