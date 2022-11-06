@@ -2,11 +2,9 @@
 
 namespace App\Console\Commands;
 
-use App\Jobs\LoadShoeDataFromStepnApi;
 use App\Stepn\ApiClient;
 use App\Stepn\HashingService;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\DB;
 
 class Hash extends Command
 {
@@ -41,6 +39,8 @@ class Hash extends Command
     public function handle()
     {
         $stepn = new ApiClient();
+        dd($stepn->getAuthCode());
+
         $data = $this->service->getHash(
             $this->argument('code'),
             $this->argument('email')

@@ -122,7 +122,7 @@ class ApiClient
         $this->sessionID = $sessionId;
     }
 
-    public function login(string $hash, string $email)
+    public function login(string $hash, string $email): void
     {
         $response = $this->sendRequest(
             'GET',
@@ -131,7 +131,7 @@ class ApiClient
 
         $body = collect(json_decode((string)$response->getBody(), true))->toArray();
 
-        if(isset($body['data']['sessionID'])) {
+        if (isset($body['data']['sessionID'])) {
             $sessionId = $body['data']['sessionID'];
 
             $this->setSessionID($sessionId);
@@ -139,5 +139,15 @@ class ApiClient
             $code = '<?php return ' . var_export(['sessionID' => $sessionId, 'epoch' => time()], true) . ';' . PHP_EOL;
             file_put_contents(config_path('stepn.php'), $code);
         }
+    }
+
+    public function getAuthCode(): array
+    {
+        $response = $this->sendRequest(
+            'GET',
+            sprintf('/run/sendlogincode?account=%s', config('services.hashing.email'))
+        );
+
+        return collect(json_decode((string)$response->getBody(), true))->toArray();
     }
 }
