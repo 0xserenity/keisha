@@ -33,6 +33,7 @@ class Price
         return DB::table('sneakers')
                 ->where('quality', $quality)
                 ->where('level', $level)
+                ->where('updated_at', '>', now()->subHours(24))
                 ->orderBy('price')
                 ->limit(1)
                 ->value('price') / 1000000;
