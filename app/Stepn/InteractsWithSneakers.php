@@ -31,7 +31,9 @@ trait InteractsWithSneakers
                 type, 
                 (comfort+(comfort_base*%f+%d)*comfort_socket) as comfort_max, 
                 price / 1000000 as price_sol, 
+                price / 100 as price_gmt, 
                 (price + (%3$f*1000000*comfort_socket))/1000000 as price_max_sol,
+                (price + (%3$f*100*comfort_socket))/100 as price_max_gmt,
                 comfort_socket,
                 is_fresh
                 ',
@@ -73,18 +75,15 @@ trait InteractsWithSneakers
             // Calculate earning
             $sneaker->daily_earn_gmt = $this->calculateDailyEarnGmt($sneaker->comfort) * $energy * 0.4;
             $sneaker->daily_earn_max_gmt = $this->calculateDailyEarnGmt($sneaker->comfort_max) * $energy * 0.4;
-            $sneaker->daily_earn_sol = Price::gmtToSol($sneaker->daily_earn_gmt);
-            $sneaker->daily_earn_max_sol = Price::gmtToSol($sneaker->daily_earn_max_gmt);
 
             // Calculate expense
             $repair = new Repair($sneaker->resilience, $sneaker->quality);
             $sneaker->daily_repair_gst = $repair->getCostGst();
-            $sneaker->daily_expense_sol = $hp->getTotalInSol() / (78 / ($decay * $energy)) + Price::gstToSol($sneaker->daily_repair_gst);
-            $sneaker->daily_expense_gmt = Price::solToGmt($sneaker->daily_expense_sol);
+            $sneaker->daily_expense_gmt = $hp->getTotalInGmt() / (78 / ($decay * $energy)) + Price::gstToGmt($sneaker->daily_repair_gst);
 
             // Calculate ROI
-            $sneaker->daily_roi = ($sneaker->daily_earn_sol - $sneaker->daily_expense_sol) / $sneaker->price_sol * 100;
-            $sneaker->daily_roi_max = ($sneaker->daily_earn_max_sol - $sneaker->daily_expense_sol) / $sneaker->price_max_sol * 100;
+            $sneaker->daily_roi = ($sneaker->daily_earn_gmt - $sneaker->daily_expense_gmt) / $sneaker->price_gmt * 100;
+            $sneaker->daily_roi_max = ($sneaker->daily_earn_max_gmt - $sneaker->daily_expense_gmt) / $sneaker->price_max_gmt * 100;
             $sneaker->apy = $sneaker->daily_roi * 365;
             $sneaker->apy_max = $sneaker->daily_roi_max * 365;
 
@@ -93,7 +92,7 @@ trait InteractsWithSneakers
             $sneaker->payback_period_max = Carbon::now()->addDays(100 / $sneaker->daily_roi_max)->diffForHumans();
 
             // Calculate liquidity
-            $sneaker->liquidity = $this->getFloorPrices()[$sneaker->quality] / $sneaker->price_sol;
+            $sneaker->liquidity = $this->getFloorPrices()[$sneaker->quality] / $sneaker->price_gmt;
         });
 
         return $sneakers
@@ -169,10 +168,10 @@ trait InteractsWithSneakers
     public function getFloorPrices(): array
     {
         return [
-             1 => Price::floorSol(),
-             2 => Price::floorSol(2),
-             3 => Price::floorSol(3),
-             4 => Price::floorSol(4)
+             1 => Price::floorGmt(),
+             2 => Price::floorGmt(2),
+             3 => Price::floorGmt(3),
+             4 => Price::floorGmt(4)
         ];
     }
 }

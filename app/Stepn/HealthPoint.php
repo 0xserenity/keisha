@@ -71,4 +71,11 @@ class HealthPoint
         $costGemInSol = $this->getQuantity() * Price::symbol(sprintf('COMFORT%d', $this->gem));
         return $costGstInUsd / Price::symbol('SOL') + $costGemInSol;
     }
+
+    public function getTotalInGmt(): float|int
+    {
+        $costGstInUsd = $this->getQuantity() * $this->getCost() * Price::symbol('GST');
+        $costGemInGmt = $this->getQuantity() * Price::symbol(sprintf('COMFORT%d', $this->gem));
+        return $costGstInUsd / Price::symbol('GMT') + $costGemInGmt;
+    }
 }

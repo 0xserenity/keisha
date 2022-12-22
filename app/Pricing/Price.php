@@ -39,6 +39,17 @@ class Price
                 ->value('price') / 1000000;
     }
 
+    public static function floorGmt(int $quality = 1, int $level = 30): float|int
+    {
+        return DB::table('sneakers')
+                ->where('quality', $quality)
+                ->where('level', $level)
+                ->where('updated_at', '>', now()->subHours(24))
+                ->orderBy('price')
+                ->limit(1)
+                ->value('price') / 100;
+    }
+
     public static function gstToSol($amount): float|int
     {
         return $amount * self::symbol('GST') / self::symbol('SOL');
@@ -52,5 +63,10 @@ class Price
     public static function busd(): float
     {
         return self::symbol('BUSD') * (1 - 0.0015);
+    }
+
+    public static function gstToGmt($amount): float|int
+    {
+        return $amount * self::symbol('GST') / self::symbol('GMT');
     }
 }

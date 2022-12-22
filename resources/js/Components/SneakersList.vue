@@ -45,6 +45,9 @@ const numberFormat = number => parseFloat(number).toFixed(2)
           <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
             {{ numberFormat(sneaker.comfort / 10) }}
           </span>
+          <span class="bg-blue-100 text-blue-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
+            {{ numberFormat(sneaker.resilience / 10) }}
+          </span>
         </div>
 
         <div class="flex items-start">
@@ -71,7 +74,7 @@ const numberFormat = number => parseFloat(number).toFixed(2)
 
         <div class="flex items-end">
           <span class="bg-purple-100 text-purple-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded">
-            {{ numberFormat(sneaker.price_sol) }}
+            {{ numberFormat(sneaker.price_gmt) }}
           </span>
         </div>
       </div>
