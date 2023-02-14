@@ -10,7 +10,7 @@ class ApiClient
 {
     protected ?Client $guzzleClient = null;
 
-    protected string $baseUrl = 'https://api.stepn.com/';
+    protected string $baseUrl = 'https://api2.stepn.com/';
 
     protected string $sessionID = '';
 
@@ -41,7 +41,7 @@ class ApiClient
     {
         return $this->getHttpClient()->request(
             $method,
-            sprintf('%s&sessionID=%s', $endpoint, $this->sessionID),
+            sprintf('%s&sessionID=%s&timestamp=%s', $endpoint, $this->sessionID, time()),
             $requestOptions
         );
     }
