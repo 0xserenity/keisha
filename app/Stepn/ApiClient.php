@@ -37,11 +37,16 @@ class ApiClient
         return $this->baseUrl;
     }
 
-    public function sendRequest(string $method, string $endpoint, $requestOptions = []): ResponseInterface
+    public function sendRequest(string $method, string $endpoint, $requestOptions = [], bool $hasSession = true): ResponseInterface
     {
-        return $this->getHttpClient()->request(
+        return $hasSession ? $this->getHttpClient()->request(
             $method,
             sprintf('%s&sessionID=%s&timestamp=%s', $endpoint, $this->sessionID, time()),
+            $requestOptions
+        ) : 
+        $this->getHttpClient()->request(
+            $method,
+            $endpoint,
             $requestOptions
         );
     }
@@ -126,7 +131,7 @@ class ApiClient
     {
         $response = $this->sendRequest(
             'GET',
-            sprintf('/run/login?account=%s&password=%s&type=4&deviceInfo=web', $email, $hash)
+            sprintf('/run/login?account=%s&password=%s&type=4&deviceInfo=web', $email, $hash, false)
         );
 
         $body = collect(json_decode((string)$response->getBody(), true))->toArray();
