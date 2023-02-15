@@ -131,7 +131,9 @@ class ApiClient
     {
         $response = $this->sendRequest(
             'GET',
-            sprintf('/run/login?account=%s&password=%s&type=4&deviceInfo=web', $email, $hash, false)
+            sprintf('/run/login?account=%s&password=%s&type=4&deviceInfo=web', $email, $hash),
+            [],
+            false
         );
 
         $body = collect(json_decode((string)$response->getBody(), true))->toArray();
