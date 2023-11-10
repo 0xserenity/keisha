@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\DB;
 
 trait InteractsWithSneakers
 {
-    public function getSneakers(): array
+    public function getSneakers($otd = null): array
     {
         // Use gem lv2
         $gemPrice = Price::symbol('COMFORT2');
@@ -30,9 +30,7 @@ trait InteractsWithSneakers
                 resilience_base,
                 type, 
                 (comfort+(comfort_base*%f+%d)*comfort_socket) as comfort_max, 
-                price / 1000000 as price_sol, 
                 price / 100 as price_gmt, 
-                (price + (%3$f*1000000*comfort_socket))/1000000 as price_max_sol,
                 (price + (%3$f*100*comfort_socket))/100 as price_max_gmt,
                 comfort_socket,
                 is_fresh
@@ -40,17 +38,22 @@ trait InteractsWithSneakers
                 $gemBoostPercentage,
                 $gemBoost,
                 $gemPrice
-            ))
-            ->where('otd', '>', 0)
-            ->where('level', '=', 30)
+            ));
+
+        if ($otd) {
+            $sneakers->where('otd', '=', $otd);
+        } else {
+            $sneakers->where('otd', '>', 0)
+                ->where('updated_at', '>', now()->subHours(24));
+        }
+
+        $sneakers = $sneakers->where('level', '=', 30)
             ->where(function ($query) {
                 $query->where('is_fresh', '=', true)
                     ->orWhere('comfort', '>=', 280);
             })
-            ->where('updated_at', '>', now()->subHours(24))
             ->orderByDesc('updated_at')
             ->orderByDesc('comfort_max')
-            ->orderBy('price_max_sol')
             ->get();
 
         $sneakers->map(function ($sneaker) use ($gemBoostPercentage, $gemBoost, $gemPrice) {
@@ -64,6 +67,9 @@ trait InteractsWithSneakers
             // 2 is minimum Energy spent daily
             // 0.2 is 20% of GST cost to repair sneakers after running
             $decay = (new HealthPointDecay($sneaker->comfort, $sneaker->quality, 2))->getDecaySpeed();
+            if($sneaker->comfort >= 1000) {
+                $decay = $decay / 2;
+            }
             $energy = 2;
 
             // Overriding comfort_max if sneakers fresh
@@ -73,12 +79,13 @@ trait InteractsWithSneakers
             }
 
             // Calculate earning
-            $sneaker->daily_earn_gmt = $this->calculateDailyEarnGmt($sneaker->comfort) * $energy * 0.4;
-            $sneaker->daily_earn_max_gmt = $this->calculateDailyEarnGmt($sneaker->comfort_max) * $energy * 0.4;
+            $sneaker->daily_earn_gmt = $this->calculateDailyEarnGmt($sneaker->comfort) * $energy * 0.4 * 0.6859504132;
+            $sneaker->daily_earn_max_gmt = $this->calculateDailyEarnGmt($sneaker->comfort_max) * $energy * 0.4 * 0.6859504132;
 
             // Calculate expense
             $repair = new Repair($sneaker->resilience, $sneaker->quality);
-            $sneaker->daily_repair_gst = $repair->getCostGst();
+
+            $sneaker->daily_repair_gst = $repair->getCostGst() * 3;
             $sneaker->daily_expense_gmt = $hp->getTotalInGmt() / (78 / ($decay * $energy)) + Price::gstToGmt($sneaker->daily_repair_gst);
 
             // Calculate ROI
@@ -129,7 +136,7 @@ trait InteractsWithSneakers
         if ($comfort < 280) {
             return 0;
         }
-        
+
         if ($comfort < 500) {
             return 1.03;
         }
@@ -168,10 +175,10 @@ trait InteractsWithSneakers
     public function getFloorPrices(): array
     {
         return [
-             1 => Price::floorGmt(),
-             2 => Price::floorGmt(2),
-             3 => Price::floorGmt(3),
-             4 => Price::floorGmt(4)
+            1 => Price::floorGmt(),
+            2 => Price::floorGmt(2),
+            3 => Price::floorGmt(3),
+            4 => Price::floorGmt(4)
         ];
     }
 }
