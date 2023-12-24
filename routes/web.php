@@ -3,6 +3,7 @@
 use App\Http\Controllers\GetNewDealsController;
 use App\Http\Controllers\Pages\DealsController;
 use App\Http\Controllers\Pages\FindGoodDealsController;
+use App\Http\Controllers\Pages\FindLuckDealsController;
 use App\Http\Controllers\Pages\HealthPointRestoreCostCalculatorController;
 use App\Http\Controllers\HealthPointRestoreCostCalculateController;
 use Illuminate\Foundation\Application;
@@ -50,3 +51,5 @@ Route::post('/hp/calculate', HealthPointRestoreCostCalculateController::class)
     ->name('hp.calculate');
 Route::get('/deals', DealsController::class)
     ->name('deals');
+Route::get('/luck-deals', FindLuckDealsController::class)
+    ->name('luck-deals');

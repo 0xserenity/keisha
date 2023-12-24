@@ -22,7 +22,6 @@ export default defineConfig({
         noExternal: ['@inertiajs/server'],
     },
     server: {
-        host: 'keisha.chillbits.com',
-        https: true
+        host: 'keisha.chillbits.com'
     }
 });

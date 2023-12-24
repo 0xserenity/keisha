@@ -10,10 +10,10 @@ trait InteractsWithSneakers
 {
     public function getSneakers($otd = null): array
     {
-        // Use gem lv2
-        $gemPrice = Price::symbol('COMFORT2');
-        $gemBoost = 8;
-        $gemBoostPercentage = 0.7;
+        // Use gem lv3
+        $gemPrice = Price::symbol('COMFORT3');
+        $gemBoost = 25;
+        $gemBoostPercentage = 2.2;
 
         $sneakers = DB::table('sneakers')
             ->selectRaw(sprintf(
@@ -66,11 +66,11 @@ trait InteractsWithSneakers
             // 0.15 is %HP reduce for 1 Energy
             // 2 is minimum Energy spent daily
             // 0.2 is 20% of GST cost to repair sneakers after running
-            $decay = (new HealthPointDecay($sneaker->comfort, $sneaker->quality, 2))->getDecaySpeed();
+            $decay = (new HealthPointDecay($sneaker->comfort, $sneaker->quality))->getDecaySpeed();
             if($sneaker->comfort >= 1000) {
-                $decay = $decay / 2;
+                $decay = $decay / 1.8;
             }
-            $energy = 2;
+            $energy = 1.8;
 
             // Overriding comfort_max if sneakers fresh
             if ($sneaker->is_fresh) {
