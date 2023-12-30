@@ -76,7 +76,7 @@ class BinanceP2PClient
                     'payTypes' => [],
                     'countries' => [],
                     'publisherType' => null,
-                    'asset' => 'BUSD',
+                    'asset' => 'USDT',
                     'fiat' => 'VND',
                     'tradeType' => 'BUY'
                 ],
