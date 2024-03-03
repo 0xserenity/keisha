@@ -5,6 +5,7 @@ use App\Http\Controllers\Pages\DealsController;
 use App\Http\Controllers\Pages\FindGoodDealsController;
 use App\Http\Controllers\Pages\FindLuckDealsController;
 use App\Http\Controllers\Pages\HealthPointRestoreCostCalculatorController;
+use App\Http\Controllers\Pages\StoryController;
 use App\Http\Controllers\HealthPointRestoreCostCalculateController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -53,3 +54,6 @@ Route::get('/deals', DealsController::class)
     ->name('deals');
 Route::get('/luck-deals', FindLuckDealsController::class)
     ->name('luck-deals');
+
+Route::get('/story', StoryController::class)
+    ->name('story');
