@@ -42,8 +42,9 @@ class HealthPoint extends Command
 
         $gemPrice = Price::symbol(sprintf('COMFORT%d', $this->argument('gem')));
         $solPrice = Price::symbol('SOL');
-        $gstPrice = Price::symbol('GST');
         $gmtPrice = Price::symbol('GMT');
+        $gstPrice = Price::symbol('GST') / $gmtPrice;
+        
 
         $this->info(
             sprintf('To restore %01.2f%% HP using comfort gem level %d, we need:||', $this->argument('hp'), $this->argument('gem'))
@@ -51,19 +52,19 @@ class HealthPoint extends Command
 
         $this->info(
             sprintf(
-                '%d gems| %d GST for the fee| So it costs %01.2f USD in total|||',
+                '%d gems| %d GST for the fee| So it costs %01.2f GMT in total|||',
                 $hp->getQuantity(),
                 $hp->getCost() * $hp->getQuantity(),
-                number_format($hp->getQuantity() * $gemPrice * $gmtPrice + $hp->getQuantity() * $hp->getCost() * $gstPrice, 2)
+                number_format($hp->getQuantity() * $gemPrice + $hp->getQuantity() * $hp->getCost() * $gstPrice, 2)
             )
         );
 
         $this->info(
             sprintf(
-                'Pricing:| 1 Gem = %01.3f GMT| 1 GMT = %01.2f USD| 1 GST =  %01.4f USD',
+                'Pricing:| 1 Gem = %01.3f GMT| 1 GST = %01.2f GMT',
                 $gemPrice,
                 number_format($gmtPrice, 2),
-                number_format($gstPrice, 4)
+                number_format($gstPrice, 2)
             )
         );
     }
